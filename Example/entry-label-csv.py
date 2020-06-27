@@ -1,7 +1,18 @@
 #entry-label.py
-
 from tkinter import *
 from tkinter import ttk
+import csv
+
+#comma separated values : CSV
+
+
+def WritetoCSV(ep):
+	with open('allexpense.csv', 'a', newline='',encoding='utf-8') as file:
+		# 'a' = append (เพิ่มได้เรื่อยๆ) , 'w' = replace (ทับไฟล์เดิม)
+		fw = csv.writer(file) # fr คือ file writer
+		# ep = ['ไก่',300]
+		fw.writerow(ep)
+	print('Done!')
 
 GUI = Tk() #นี่คือหน้าต่างหลักของโปรแกรม
 GUI.geometry('500x300') #ปรับขนาด
@@ -32,6 +43,7 @@ E2.pack(pady=10)
 
 
 # SaveExpense คือฟังก์ชันเมื่อมีการกดปุ่ม ฟังก์ชันนี้จะทำงาน
+from datetime import datetime #เวลา
 def SaveExpense(event=None):
     exp = v_expense.get()
     pc = float(v_price.get()) # แปลงข้อความเป็นจุดทศนิยม
@@ -40,6 +52,11 @@ def SaveExpense(event=None):
 
     #v_result.set('คุณกำลังบันทึกรายการ: ' + exp + ' ราคา: ' + v_price.get() + ' บาท')
     v_result.set(f'กำลังบันทึกรายการ: {exp} ราคา: {pc:,.2f} บาท')
+
+    dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S') 
+
+    data = [dt,exp, pc] #จัดเรียงข้อมูลก่อน save ลง csv
+    WritetoCSV(data) #เรียกฟังก์ชันการบันทึกข้อมูล
 
     #reset ตัวแปร
     v_expense.set('')
