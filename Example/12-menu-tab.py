@@ -64,4 +64,8 @@ Tab.add(T1,text='รายจ่าย', image=icon_expense,compound='top')
 Tab.add(T2,text='รายรับ', image=icon_imcome,compound='top')
 Tab.add(T3,text='สรุปผล', image=icon_dashboard,compound='top')
 
+
+
+
+
 GUI.mainloop() #ทำให้โปรแกรมรันตลอดเวลา
